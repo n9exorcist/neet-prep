@@ -9,6 +9,10 @@ Do NOT set ANTHROPIC_API_KEY - that would switch billing to pay-as-you-go.
     pip install pymupdf
     python pipeline/extract_pyq.py data/raw/NEET2023.pdf --year 2023 --start 1 --end 3
 
+Add --workers 3 to process three pages at once. That is roughly twice as fast in
+wall-clock and does not change the total work, so it reaches your usage limit
+sooner rather than costing more.
+
 Output, under data/extracted/2023/:
     questions.jsonl     one JSON object per question
     pages/p012.png      full page renders
@@ -21,17 +25,27 @@ are skipped.
 """
 
 import argparse, json, os, shutil, subprocess, sys, time
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import fitz  # pymupdf
 
 DPI = 200
 
+NEXT_PAGE_NOTE = """Then read the FOLLOWING page image at: {img2}
+
+The second image is CONTEXT ONLY. Questions here often run over the page break,
+with the options or the "Answer:" line printed on the next page. Use the second
+image to complete any such question. Do NOT extract questions that begin on the
+second image - they belong to the next page's batch.
+"""
+
 SPEC = """You are extracting exam questions from an image of a NEET (Indian medical
 entrance) past paper.
 
 Read the image at: {img}
 
+{next_note}
 Return ONLY a JSON array. No prose, no explanation, no markdown fences.
 
 Each element:
@@ -53,11 +67,12 @@ Field rules:
 - subject: physics | chemistry | botany | zoology | biology
 - chapter: the NCERT chapter name, your best guess
 - question: use LaTeX for all mathematics, wrapped in $...$
-- answer: the key printed on the page, or null if not shown
+- answer: the key printed for that question, on either image, or null if not shown
 - has_figure: true if the QUESTION needs a diagram, graph, circuit, or chemical
   structure to be answerable
-- figure_span: if has_figure, [top, bottom] as fractions of page height covering
-  the question generously, e.g. [0.31, 0.48]. Otherwise null.
+- figure_span: if has_figure, [top, bottom] as fractions of the height of the
+  FIRST image, covering the question generously, e.g. [0.31, 0.48]. Measure
+  against the first image only, never the second. Otherwise null.
 - difficulty: easy | medium | hard
 - confidence: "low" if anything was unclear or the question is cut off
 
@@ -77,8 +92,11 @@ def find_claude():
     sys.exit("claude not found on PATH. Run `claude --version` to check your install.")
 
 
-def call_claude(claude_bin, img_path, page_no, retries=3):
-    prompt = SPEC.format(img=str(img_path).replace("\\", "/"))
+def call_claude(claude_bin, img_path, next_img_path, page_no, retries=3):
+    note = ""
+    if next_img_path is not None:
+        note = NEXT_PAGE_NOTE.format(img2=str(next_img_path).replace("\\", "/"))
+    prompt = SPEC.format(img=str(img_path).replace("\\", "/"), next_note=note)
     for attempt in range(retries):
         try:
             r = subprocess.run(
@@ -135,6 +153,10 @@ def main():
     ap.add_argument("--out", default="data/extracted")
     ap.add_argument("--start", type=int, default=1)
     ap.add_argument("--end", type=int, default=0, help="0 = last page")
+    ap.add_argument("--workers", type=int, default=1,
+                    help="pages to process at once (default 1). Higher is faster "
+                         "in wall-clock but reaches your usage limit sooner; the "
+                         "total work is the same either way.")
     args = ap.parse_args()
 
     if os.environ.get("ANTHROPIC_API_KEY"):
@@ -155,15 +177,34 @@ def main():
     out_f = (base / "questions.jsonl").open("a", encoding="utf-8")
     kept = 0
 
-    for i in range(args.start - 1, min(last, doc.page_count)):
-        page_no = i + 1
-        if str(page_no) in done:
-            continue
-        page = doc[i]
-        img_path = base / "pages" / f"p{page_no:03d}.png"
-        page.get_pixmap(dpi=DPI).save(img_path)
+    def page_png(page_no):
+        """Render a page if we have not already. Main thread only - pymupdf
+        page objects are not safe to touch from several threads at once."""
+        p = base / "pages" / f"p{page_no:03d}.png"
+        if not p.exists():
+            doc[page_no - 1].get_pixmap(dpi=DPI).save(p)
+        return p
 
-        questions = call_claude(claude_bin, img_path.resolve(), page_no)
+    todo = [i + 1 for i in range(args.start - 1, min(last, doc.page_count))
+            if str(i + 1) not in done]
+    if not todo:
+        print("  nothing to do - every requested page is already in .done")
+
+    for page_no in todo:
+        page_png(page_no)
+        if page_no + 1 <= doc.page_count:
+            page_png(page_no + 1)  # context for questions crossing the break
+
+    def work(page_no):
+        img = page_png(page_no).resolve()
+        nxt = page_png(page_no + 1).resolve() if page_no + 1 <= doc.page_count else None
+        return page_no, call_claude(claude_bin, img, nxt, page_no)
+
+    pool = ThreadPoolExecutor(max_workers=args.workers)
+    # map keeps results in page order; writing stays on the main thread so the
+    # jsonl, the .done file and pymupdf are all touched by one thread only.
+    for page_no, questions in pool.map(work, todo):
+        page = doc[page_no - 1]
         if questions is None:
             continue  # left unmarked so a later run retries it
 
@@ -186,6 +227,7 @@ def main():
             d.write(f"{page_no}\n")
         print(f"  page {page_no}: {len(questions)} questions")
 
+    pool.shutdown()
     out_f.close()
     print(f"\n{kept} questions added -> {base / 'questions.jsonl'}")
 
