@@ -1,0 +1,9 @@
+data/raw/
+data/extracted/
+node_modules/
+.env
+.env.local
+__pycache__/
+*.pyc
+.venv/
+.next/
