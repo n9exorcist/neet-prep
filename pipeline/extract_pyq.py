@@ -24,13 +24,20 @@ window. That is fine: stop, wait, run the same command again. Pages already done
 are skipped.
 """
 
-import argparse, json, os, shutil, subprocess, sys, time
+import argparse, json, os, shutil, subprocess, sys, threading, time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import fitz  # pymupdf
 
 DPI = 200
+
+# When the subscription limit is reached, `claude -p` answers in prose instead of
+# JSON. Without this check that reads as "unparseable output", and the retry loop
+# chews through every remaining page in seconds, marking them all GAVE UP. Stop
+# the run instead: pages not in .done are picked up by the next run.
+LIMIT_MARKERS = ("usage limit", "rate limit", "limit reached", "limit will reset")
+STOP = threading.Event()
 
 NEXT_PAGE_NOTE = """Then read the FOLLOWING page image at: {img2}
 
@@ -98,6 +105,8 @@ def call_claude(claude_bin, img_path, next_img_path, page_no, retries=3):
         note = NEXT_PAGE_NOTE.format(img2=str(next_img_path).replace("\\", "/"))
     prompt = SPEC.format(img=str(img_path).replace("\\", "/"), next_note=note)
     for attempt in range(retries):
+        if STOP.is_set():
+            return None
         try:
             r = subprocess.run(
                 [claude_bin, "-p",
@@ -110,6 +119,15 @@ def call_claude(claude_bin, img_path, next_img_path, page_no, retries=3):
                 timeout=300,
             )
             out = (r.stdout or "").strip()
+            blob = (out + " " + (r.stderr or "")).lower()
+            if any(m in blob for m in LIMIT_MARKERS):
+                if not STOP.is_set():
+                    STOP.set()
+                    print(f"\n  SUBSCRIPTION LIMIT REACHED (hit on page {page_no}).\n"
+                          f"  {out[:200]}\n"
+                          f"  Stopping. Re-run the same command once it resets - "
+                          f"finished pages are skipped.", file=sys.stderr)
+                return None
             if not out:
                 raise RuntimeError((r.stderr or "empty output")[:300])
             if out.startswith("```"):
@@ -235,13 +253,19 @@ def main():
     if not rows:
         return
     nums = sorted(int(r["number"]) for r in rows)
-    missing = [n for n in range(1, 181) if n not in set(nums)]
+    # 2020-2024 papers carry 200 questions (Section B was optional); 2015-2019
+    # and 2025 carry 180. Take the paper's own word for it rather than assuming.
+    expected = 200 if nums[-1] > 180 else 180
+    missing = [n for n in range(1, expected + 1) if n not in set(nums)]
     print(f"  total={len(rows)}  "
           f"low_confidence={sum(1 for r in rows if r.get('confidence') == 'low')}  "
           f"with_figure={sum(1 for r in rows if r.get('figure_path'))}  "
           f"no_answer_key={sum(1 for r in rows if not r.get('answer'))}")
     print(f"  duplicate numbers: {len(nums) - len(set(nums))}")
-    print(f"  missing of 1-180: {missing if len(missing) < 30 else str(len(missing)) + ' missing'}")
+    print(f"  missing of 1-{expected}: "
+          f"{missing if len(missing) < 30 else str(len(missing)) + ' missing'}")
+    if STOP.is_set():
+        print("  STOPPED EARLY on the subscription limit - re-run to continue.")
 
 
 if __name__ == "__main__":
