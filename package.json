@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "import": "tsx scripts/import.ts"
+    "import": "tsx scripts/import.ts",
+    "test:pdfs": "python pipeline/test_pdfs.py"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.4",
