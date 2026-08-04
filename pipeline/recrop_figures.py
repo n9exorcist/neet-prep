@@ -123,11 +123,34 @@ def column_start(page, lines, column):
     Top of a column's real content, skipping the running head. Everything in the
     top 6% of the page is the paper's header or the publisher's logo, and it must
     not end up inside a question's figure.
+
+    Images and vector drawings count as content, not just text. A question whose
+    diagram sits at the top of the continuation page has no text above its
+    options, so looking at text alone started the crop below the diagram and
+    silently dropped it - 2023 Q22 kept "Options: (a) 2uF ..." and lost the
+    circuit the question asks about.
     """
     cx0, cx1 = column
     r = page.rect
     floor = r.y0 + 0.06 * r.height
-    tops = [ly0 for lx0, ly0, lx1, ly1, _ in lines if lx0 >= cx0 - PAD and lx1 <= cx1 + PAD and ly0 >= floor]
+
+    def inside(x0, x1):
+        return x0 >= cx0 - PAD and x1 <= cx1 + PAD
+
+    tops = [ly0 for lx0, ly0, lx1, ly1, _ in lines if inside(lx0, lx1) and ly0 >= floor]
+
+    for block in page.get_text("dict")["blocks"]:
+        if block.get("type") != 1:  # 1 == image
+            continue
+        x0, y0, x1, y1 = block["bbox"]
+        if inside(x0, x1) and y0 >= floor:
+            tops.append(y0)
+
+    for drawing in page.get_drawings():
+        x0, y0, x1, y1 = drawing["rect"]
+        if inside(x0, x1) and y0 >= floor:
+            tops.append(y0)
+
     return min(tops) - PAD if tops else floor
 
 
