@@ -157,7 +157,28 @@ carrying the question number. Not a list of buttons.
 
 ---
 
+## Two surfaces
+
+There are two audiences, and they need different things.
+
+**The marketing surface** — the landing page and sign in. Someone here is deciding
+whether to trust this at all: often a parent, often on a phone, with no reason yet
+to take it seriously. Depth, colour and entrance motion are allowed, because a page
+that looks abandoned does not get used. This is the only place they are allowed.
+
+**The exam surface** — practice, diagnostics, the review tool, the plan. Everything
+below applies here without exception. A student mid-question is not being persuaded
+of anything, and decoration beside a live timer is noise at best.
+
+The marketing styles live under a `.marketing` scope in `globals.css` so they cannot
+reach the exam screens by accident. If you find yourself wanting a gradient on a
+question, the answer is no.
+
+---
+
 ## Not this
+
+On the exam surface, never:
 
 - Gradient heroes, glassmorphism, glow effects
 - Mascots, celebratory confetti, streak flames
@@ -166,3 +187,10 @@ carrying the question number. Not a list of buttons.
 - Anything that would look at home in a marketing screenshot
 
 The student is not here to be entertained. They are here because a seat depends on it.
+
+Everywhere, including marketing, never:
+
+- Motion that ignores `prefers-reduced-motion`
+- Colour as the only carrier of meaning
+- Touch targets under 44px, or question text under 17px
+- `--mark` used for anything but the student's current selection

@@ -12,7 +12,9 @@ export function SignInForm() {
   const params = useSearchParams();
   const next = params.get("next") || "/practice";
 
-  const [mode, setMode] = useState<Mode>("sign-in");
+  // "Create a free account" on the landing page links here with ?mode=sign-up,
+  // so the form opens on the step the visitor actually chose.
+  const [mode, setMode] = useState<Mode>(params.get("mode") === "sign-up" ? "sign-up" : "sign-in");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
