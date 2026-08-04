@@ -1,11 +1,18 @@
 import Link from "next/link";
-import { Suspense } from "react";
 
 import { SignInForm } from "./sign-in-form";
 
 export const metadata = { title: "Sign in — NEET Prep" };
 
-export default function SignInPage() {
+export default async function SignInPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ mode?: string; next?: string }>;
+}) {
+  const { mode, next } = await searchParams;
+  // Only accept an internal path, so ?next= cannot bounce anyone off-site.
+  const safeNext = next && /^\/[^/\\]/.test(next) ? next : "/practice";
+
   return (
     <div className="marketing relative flex-1">
       <div className="marketing-bg" aria-hidden="true" />
@@ -24,9 +31,10 @@ export default function SignInPage() {
             Your progress and your study plan are tied to this account.
           </p>
 
-          <Suspense fallback={null}>
-            <SignInForm />
-          </Suspense>
+          <SignInForm
+            initialMode={mode === "sign-up" ? "sign-up" : "sign-in"}
+            next={safeNext}
+          />
         </div>
 
         <p

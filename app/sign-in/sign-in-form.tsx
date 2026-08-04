@@ -1,20 +1,28 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/client";
 
 type Mode = "sign-in" | "sign-up";
 
-export function SignInForm() {
+/**
+ * The query string arrives as props from the server component rather than
+ * through useSearchParams. That hook forces the component into a Suspense
+ * boundary, and with a null fallback the whole form was missing from the
+ * server-rendered HTML - a blank card until JavaScript arrived, on exactly the
+ * slow connections this is meant to work on.
+ */
+export function SignInForm({
+  initialMode,
+  next,
+}: {
+  initialMode: Mode;
+  next: string;
+}) {
   const router = useRouter();
-  const params = useSearchParams();
-  const next = params.get("next") || "/practice";
-
-  // "Create a free account" on the landing page links here with ?mode=sign-up,
-  // so the form opens on the step the visitor actually chose.
-  const [mode, setMode] = useState<Mode>(params.get("mode") === "sign-up" ? "sign-up" : "sign-in");
+  const [mode, setMode] = useState<Mode>(initialMode);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
