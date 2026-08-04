@@ -16,6 +16,14 @@ export async function GET(
   _request: Request,
   { params }: { params: Promise<{ year: string; page: string }> },
 ) {
+  // Local only, and the most important of the three: these are whole pages of
+  // the source PDFs, including the coaching companies' worked solutions, which
+  // CLAUDE.md says we may not republish. Enforced here as well as in middleware
+  // so it cannot be defeated by a matcher change.
+  if (process.env.NODE_ENV === "production") {
+    return new Response("Not found", { status: 404 });
+  }
+
   const { year, page } = await params;
 
   if (!YEAR_RE.test(year) || !PAGE_RE.test(page)) {

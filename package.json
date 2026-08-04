@@ -10,6 +10,7 @@
     "import": "tsx scripts/import.ts"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.12.4",
     "@supabase/supabase-js": "^2.112.0",
     "@types/katex": "^0.16.8",
     "katex": "^0.18.1",

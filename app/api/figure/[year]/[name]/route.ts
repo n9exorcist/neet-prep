@@ -15,6 +15,16 @@ export async function GET(
   _request: Request,
   { params }: { params: Promise<{ year: string; name: string }> },
 ) {
+  // Local only. Four crops still show an answer key, and these files are not
+  // deployed anyway - student-facing figures come from Supabase Storage.
+  //
+  // Checked here rather than trusting middleware alone: the middleware matcher
+  // excludes paths ending in an image extension as static assets, and these URLs
+  // end in .png, so middleware never runs for this route.
+  if (process.env.NODE_ENV === "production") {
+    return new Response("Not found", { status: 404 });
+  }
+
   const { year, name } = await params;
 
   if (!YEAR_RE.test(year) || !NAME_RE.test(name)) {
