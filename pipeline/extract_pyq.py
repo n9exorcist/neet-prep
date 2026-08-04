@@ -253,7 +253,7 @@ def main():
     if not rows:
         return
     nums = sorted(int(r["number"]) for r in rows)
-    # 2020-2024 papers carry 200 questions (Section B was optional); 2015-2019
+    # 2021-2024 papers carry 200 questions (Section B was optional); 2015-2020
     # and 2025 carry 180. Take the paper's own word for it rather than assuming.
     expected = 200 if nums[-1] > 180 else 180
     missing = [n for n in range(1, expected + 1) if n not in set(nums)]
