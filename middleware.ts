@@ -16,6 +16,9 @@ import { createServerClient } from "@supabase/ssr";
  */
 const LOCAL_ONLY = [/^\/admin(\/|$)/, /^\/api\/page(\/|$)/, /^\/api\/figure(\/|$)/];
 
+/** Student areas, which need a signed-in user to be of any use. */
+const PROTECTED = [/^\/practice(\/|$)/, /^\/onboarding(\/|$)/];
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
@@ -47,8 +50,27 @@ export async function middleware(request: NextRequest) {
     },
   });
 
-  // Touching auth is what performs the refresh; the result is unused here.
-  await supabase.auth.getUser();
+  // Touching auth is what performs the refresh.
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  // Student areas require a session. Row level security already prevents an
+  // anonymous client from reading anything, so this is about sending people
+  // somewhere useful rather than about access control.
+  if (!user && PROTECTED.some((re) => re.test(pathname))) {
+    const signIn = request.nextUrl.clone();
+    signIn.pathname = "/sign-in";
+    signIn.searchParams.set("next", pathname);
+    return NextResponse.redirect(signIn);
+  }
+
+  if (user && pathname === "/sign-in") {
+    const home = request.nextUrl.clone();
+    home.pathname = "/practice";
+    home.search = "";
+    return NextResponse.redirect(home);
+  }
 
   return response;
 }

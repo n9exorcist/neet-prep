@@ -12,7 +12,7 @@ import { recordDecision } from "./actions";
 const DIFFICULTIES = ["easy", "medium", "hard"];
 const SUBJECTS = ["physics", "chemistry", "botany", "zoology", "biology"];
 
-function Math({ source, className }: { source: string; className?: string }) {
+function Tex({ source, className }: { source: string; className?: string }) {
   return (
     <span className={className} dangerouslySetInnerHTML={{ __html: renderMathText(source) }} />
   );
@@ -216,7 +216,7 @@ export function ReviewClient({
           </figure>
         ) : null}
 
-        <Math source={question} className="t-body block" />
+        <Tex source={question} className="t-body block" />
 
         <fieldset className="mt-5">
           <legend className="sr-only">Correct answer for question {row.number}</legend>
@@ -240,7 +240,7 @@ export function ReviewClient({
                     {k.toUpperCase()}
                   </span>
                   <span className="sr-only">Option {i + 1}:</span>
-                  <Math source={options[k] ?? ""} className="t-body" />
+                  <Tex source={options[k] ?? ""} className="t-body" />
                 </label>
               </li>
             ))}
