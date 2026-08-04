@@ -1,0 +1,1305 @@
+{
+  "botany|Sexual Reproduction in Flowering Plants": {
+    "questions": 44,
+    "chapter": "Sexual Reproduction in Flowering Plants",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "zoology|Animal Kingdom": {
+    "questions": 40,
+    "chapter": "Animal Kingdom",
+    "subject": "zoology",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "physics|Current Electricity": {
+    "questions": 40,
+    "chapter": "Current Electricity",
+    "subject": "physics",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "botany|Molecular Basis of Inheritance": {
+    "questions": 39,
+    "chapter": "Molecular Basis of Inheritance",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0,
+    "split_disputed": true
+  },
+  "botany|Morphology of Flowering Plants": {
+    "questions": 33,
+    "chapter": "Morphology of Flowering Plants",
+    "subject": "botany",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "zoology|Human Reproduction": {
+    "questions": 33,
+    "chapter": "Human Reproduction",
+    "subject": "zoology",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "zoology|Structural Organisation in Animals": {
+    "questions": 30,
+    "chapter": "Structural Organisation in Animals",
+    "subject": "zoology",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "physics|Semiconductor Electronics: Materials, Devices and Simple Circuits": {
+    "questions": 30,
+    "chapter": "Semiconductor Electronics: Materials, Devices and Simple Circuits",
+    "subject": "physics",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "botany|Biological Classification": {
+    "questions": 29,
+    "chapter": "Biological Classification",
+    "subject": "botany",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "biology|Biotechnology: Principles and Processes": {
+    "questions": 29,
+    "chapter": "Biotechnology: Principles and Processes",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "botany|Anatomy of Flowering Plants": {
+    "questions": 29,
+    "chapter": "Anatomy of Flowering Plants",
+    "subject": "botany",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "physics|Ray Optics and Optical Instruments": {
+    "questions": 29,
+    "chapter": "Ray Optics and Optical Instruments",
+    "subject": "physics",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "botany|Cell Cycle and Cell Division": {
+    "questions": 29,
+    "chapter": "Cell Cycle and Cell Division",
+    "subject": "botany",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "chemistry|Coordination Compounds": {
+    "questions": 28,
+    "chapter": "Coordination Compounds",
+    "subject": "chemistry",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "chemistry|Aldehydes, Ketones and Carboxylic Acids": {
+    "questions": 28,
+    "chapter": "Aldehydes, Ketones and Carboxylic Acids",
+    "subject": "chemistry",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "zoology|Human Health and Disease": {
+    "questions": 28,
+    "chapter": "Human Health and Disease",
+    "subject": "zoology",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "chemistry|The p-Block Elements": {
+    "questions": 27,
+    "chapter": "The p-Block Elements",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "chemistry|Chemical Bonding and Molecular Structure": {
+    "questions": 27,
+    "chapter": "Chemical Bonding and Molecular Structure",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "botany|Biomolecules": {
+    "questions": 27,
+    "chapter": "Biomolecules",
+    "subject": "botany",
+    "ncert_class": 11,
+    "confidence": 1.0,
+    "split_disputed": true
+  },
+  "botany|Plant Kingdom": {
+    "questions": 26,
+    "chapter": "Plant Kingdom",
+    "subject": "botany",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "botany|Biotechnology: Principles and Processes": {
+    "questions": 26,
+    "chapter": "Biotechnology: Principles and Processes",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "physics|Moving Charges and Magnetism": {
+    "questions": 26,
+    "chapter": "Moving Charges and Magnetism",
+    "subject": "physics",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "physics|Electrostatic Potential and Capacitance": {
+    "questions": 25,
+    "chapter": "Electrostatic Potential and Capacitance",
+    "subject": "physics",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "chemistry|Equilibrium": {
+    "questions": 24,
+    "chapter": "Equilibrium",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "botany|Cell: The Unit of Life": {
+    "questions": 24,
+    "chapter": "Cell: The Unit of Life",
+    "subject": "botany",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "zoology|Reproductive Health": {
+    "questions": 24,
+    "chapter": "Reproductive Health",
+    "subject": "zoology",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "zoology|Chemical Coordination and Integration": {
+    "questions": 24,
+    "chapter": "Chemical Coordination and Integration",
+    "subject": "zoology",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "physics|Dual Nature of Radiation and Matter": {
+    "questions": 24,
+    "chapter": "Dual Nature of Radiation and Matter",
+    "subject": "physics",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "chemistry|Hydrocarbons": {
+    "questions": 23,
+    "chapter": "Hydrocarbons",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "chemistry|Chemical Kinetics": {
+    "questions": 23,
+    "chapter": "Chemical Kinetics",
+    "subject": "chemistry",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "botany|Photosynthesis in Higher Plants": {
+    "questions": 23,
+    "chapter": "Photosynthesis in Higher Plants",
+    "subject": "botany",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "zoology|Principles of Inheritance and Variation": {
+    "questions": 23,
+    "chapter": "Principles of Inheritance and Variation",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0,
+    "split_disputed": true
+  },
+  "physics|Units and Measurements": {
+    "questions": 23,
+    "chapter": "Units and Measurements",
+    "subject": "physics",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "botany|Plant Growth and Development": {
+    "questions": 22,
+    "chapter": "Plant Growth and Development",
+    "subject": "botany",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "zoology|Evolution": {
+    "questions": 22,
+    "chapter": "Evolution",
+    "subject": "zoology",
+    "ncert_class": 12,
+    "confidence": 1.0,
+    "split_disputed": true
+  },
+  "zoology|Breathing and Exchange of Gases": {
+    "questions": 22,
+    "chapter": "Breathing and Exchange of Gases",
+    "subject": "zoology",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "physics|System of Particles and Rotational Motion": {
+    "questions": 22,
+    "chapter": "System of Particles and Rotational Motion",
+    "subject": "physics",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "chemistry|Alcohols, Phenols and Ethers": {
+    "questions": 21,
+    "chapter": "Alcohols, Phenols and Ethers",
+    "subject": "chemistry",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "zoology|Body Fluids and Circulation": {
+    "questions": 21,
+    "chapter": "Body Fluids and Circulation",
+    "subject": "zoology",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "chemistry|Thermodynamics": {
+    "questions": 20,
+    "chapter": "Thermodynamics",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "chemistry|Haloalkanes and Haloarenes": {
+    "questions": 20,
+    "chapter": "Haloalkanes and Haloarenes",
+    "subject": "chemistry",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "botany|Organisms and Populations": {
+    "questions": 20,
+    "chapter": "Organisms and Populations",
+    "subject": "zoology",
+    "ncert_class": 12,
+    "confidence": 1.0,
+    "split_disputed": true
+  },
+  "botany|Principles of Inheritance and Variation": {
+    "questions": 20,
+    "chapter": "Principles of Inheritance and Variation",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0,
+    "split_disputed": true
+  },
+  "physics|Gravitation": {
+    "questions": 20,
+    "chapter": "Gravitation",
+    "subject": "physics",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "physics|Wave Optics": {
+    "questions": 20,
+    "chapter": "Wave Optics",
+    "subject": "physics",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "physics|Alternating Current": {
+    "questions": 20,
+    "chapter": "Alternating Current",
+    "subject": "physics",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "zoology|Digestion and Absorption": {
+    "questions": 19,
+    "chapter": "Digestion and Absorption",
+    "subject": "zoology",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "botany|Biodiversity and Conservation": {
+    "questions": 19,
+    "chapter": "Biodiversity and Conservation",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "zoology|Locomotion and Movement": {
+    "questions": 19,
+    "chapter": "Locomotion and Movement",
+    "subject": "zoology",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "chemistry|The d- and f-Block Elements": {
+    "questions": 18,
+    "chapter": "The d- and f-Block Elements",
+    "subject": "chemistry",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "chemistry|Amines": {
+    "questions": 18,
+    "chapter": "Amines",
+    "subject": "chemistry",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "botany|Ecosystem": {
+    "questions": 18,
+    "chapter": "Ecosystem",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0,
+    "in_current_syllabus": false
+  },
+  "physics|Laws of Motion": {
+    "questions": 18,
+    "chapter": "Laws of Motion",
+    "subject": "physics",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "chemistry|Solutions": {
+    "questions": 17,
+    "chapter": "Solutions",
+    "subject": "chemistry",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "botany|Transport in Plants": {
+    "questions": 17,
+    "chapter": "Transport in Plants",
+    "subject": "botany",
+    "ncert_class": 11,
+    "confidence": 1.0,
+    "in_current_syllabus": false
+  },
+  "zoology|Neural Control and Coordination": {
+    "questions": 17,
+    "chapter": "Neural Control and Coordination",
+    "subject": "zoology",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "zoology|Excretory Products and their Elimination": {
+    "questions": 17,
+    "chapter": "Excretory Products and their Elimination",
+    "subject": "zoology",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "biology|Molecular Basis of Inheritance": {
+    "questions": 17,
+    "chapter": "Molecular Basis of Inheritance",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0,
+    "split_disputed": true
+  },
+  "physics|Oscillations": {
+    "questions": 17,
+    "chapter": "Oscillations",
+    "subject": "physics",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "physics|Work, Energy and Power": {
+    "questions": 17,
+    "chapter": "Work, Energy and Power",
+    "subject": "physics",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "chemistry|Some Basic Concepts of Chemistry": {
+    "questions": 16,
+    "chapter": "Some Basic Concepts of Chemistry",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "chemistry|Structure of Atom": {
+    "questions": 16,
+    "chapter": "Structure of Atom",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "biology|Environmental Issues": {
+    "questions": 16,
+    "chapter": "Environmental Issues",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0,
+    "in_current_syllabus": false
+  },
+  "physics|Electromagnetic Waves": {
+    "questions": 16,
+    "chapter": "Electromagnetic Waves",
+    "subject": "physics",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "physics|Thermodynamics": {
+    "questions": 16,
+    "chapter": "Thermodynamics",
+    "subject": "physics",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "chemistry|Electrochemistry": {
+    "questions": 16,
+    "chapter": "Electrochemistry",
+    "subject": "chemistry",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "chemistry|The s-Block Elements": {
+    "questions": 15,
+    "chapter": "The s-Block Elements",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "physics|Mechanical Properties of Fluids": {
+    "questions": 15,
+    "chapter": "Mechanical Properties of Fluids",
+    "subject": "physics",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "chemistry|Biomolecules": {
+    "questions": 15,
+    "chapter": "Biomolecules",
+    "subject": "chemistry",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "chemistry|The Solid State": {
+    "questions": 14,
+    "chapter": "Solid State",
+    "subject": "chemistry",
+    "ncert_class": 12,
+    "confidence": 0.93,
+    "in_current_syllabus": false
+  },
+  "biology|Microbes in Human Welfare": {
+    "questions": 14,
+    "chapter": "Microbes in Human Welfare",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "physics|Motion in a Plane": {
+    "questions": 14,
+    "chapter": "Motion in a Plane",
+    "subject": "physics",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "physics|Motion in a Straight Line": {
+    "questions": 14,
+    "chapter": "Motion in a Straight Line",
+    "subject": "physics",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "chemistry|Classification of Elements and Periodicity in Properties": {
+    "questions": 13,
+    "chapter": "Classification of Elements and Periodicity in Properties",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "physics|Waves": {
+    "questions": 13,
+    "chapter": "Waves",
+    "subject": "physics",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "chemistry|Organic Chemistry – Some Basic Principles and Techniques": {
+    "questions": 13,
+    "chapter": "Organic Chemistry - Some Basic Principles and Techniques",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "chemistry|States of Matter": {
+    "questions": 12,
+    "chapter": "States of Matter",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 1.0,
+    "in_current_syllabus": false
+  },
+  "botany|Mineral Nutrition": {
+    "questions": 12,
+    "chapter": "Mineral Nutrition",
+    "subject": "botany",
+    "ncert_class": 11,
+    "confidence": 1.0,
+    "in_current_syllabus": false
+  },
+  "physics|Atoms": {
+    "questions": 12,
+    "chapter": "Atoms",
+    "subject": "physics",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "physics|Electromagnetic Induction": {
+    "questions": 12,
+    "chapter": "Electromagnetic Induction",
+    "subject": "physics",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "physics|Thermal Properties of Matter": {
+    "questions": 12,
+    "chapter": "Thermal Properties of Matter",
+    "subject": "physics",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "physics|Electric Charges and Fields": {
+    "questions": 12,
+    "chapter": "Electric Charges and Fields",
+    "subject": "physics",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "botany|Respiration in Plants": {
+    "questions": 12,
+    "chapter": "Respiration in Plants",
+    "subject": "botany",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "biology|Cell: The Unit of Life": {
+    "questions": 11,
+    "chapter": "Cell: The Unit of Life",
+    "subject": "botany",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "physics|Kinetic Theory": {
+    "questions": 11,
+    "chapter": "Kinetic Theory",
+    "subject": "physics",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "physics|Nuclei": {
+    "questions": 11,
+    "chapter": "Nuclei",
+    "subject": "physics",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "chemistry|Redox Reactions": {
+    "questions": 10,
+    "chapter": "Redox Reactions",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "chemistry|Organic Chemistry - Some Basic Principles and Techniques": {
+    "questions": 10,
+    "chapter": "Organic Chemistry - Some Basic Principles and Techniques",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "chemistry|General Principles and Processes of Isolation of Elements": {
+    "questions": 10,
+    "chapter": "General Principles and Processes of Isolation of Elements",
+    "subject": "chemistry",
+    "ncert_class": 12,
+    "confidence": 1.0,
+    "in_current_syllabus": false
+  },
+  "botany|Biotechnology and its Applications": {
+    "questions": 10,
+    "chapter": "Biotechnology and its Applications",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "botany|Environmental Issues": {
+    "questions": 10,
+    "chapter": "Environmental Issues",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0,
+    "in_current_syllabus": false
+  },
+  "physics|Magnetism and Matter": {
+    "questions": 9,
+    "chapter": "Magnetism and Matter",
+    "subject": "physics",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "chemistry|Surface Chemistry": {
+    "questions": 9,
+    "chapter": "Surface Chemistry",
+    "subject": "chemistry",
+    "ncert_class": 12,
+    "confidence": 1.0,
+    "in_current_syllabus": false
+  },
+  "biology|Biotechnology and its Applications": {
+    "questions": 9,
+    "chapter": "Biotechnology and its Applications",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "chemistry|Polymers": {
+    "questions": 8,
+    "chapter": "Polymers",
+    "subject": "chemistry",
+    "ncert_class": 12,
+    "confidence": 1.0,
+    "in_current_syllabus": false
+  },
+  "biology|Cell Cycle and Cell Division": {
+    "questions": 8,
+    "chapter": "Cell Cycle and Cell Division",
+    "subject": "botany",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "biology|Principles of Inheritance and Variation": {
+    "questions": 8,
+    "chapter": "Principles of Inheritance and Variation",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0,
+    "split_disputed": true
+  },
+  "physics|Mechanical Properties of Solids": {
+    "questions": 8,
+    "chapter": "Mechanical Properties of Solids",
+    "subject": "physics",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "physics|Systems of Particles and Rotational Motion": {
+    "questions": 8,
+    "chapter": "System of Particles and Rotational Motion",
+    "subject": "physics",
+    "ncert_class": 11,
+    "confidence": 0.988
+  },
+  "chemistry|Chemistry in Everyday Life": {
+    "questions": 7,
+    "chapter": "Chemistry in Everyday Life",
+    "subject": "chemistry",
+    "ncert_class": 12,
+    "confidence": 1.0,
+    "in_current_syllabus": false
+  },
+  "biology|Biomolecules": {
+    "questions": 7,
+    "chapter": "Biomolecules",
+    "subject": "botany",
+    "ncert_class": 11,
+    "confidence": 1.0,
+    "split_disputed": true
+  },
+  "biology|Organisms and Populations": {
+    "questions": 6,
+    "chapter": "Organisms and Populations",
+    "subject": "zoology",
+    "ncert_class": 12,
+    "confidence": 1.0,
+    "split_disputed": true
+  },
+  "biology|Ecosystem": {
+    "questions": 6,
+    "chapter": "Ecosystem",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0,
+    "in_current_syllabus": false
+  },
+  "biology|Evolution": {
+    "questions": 6,
+    "chapter": "Evolution",
+    "subject": "zoology",
+    "ncert_class": 12,
+    "confidence": 1.0,
+    "split_disputed": true
+  },
+  "chemistry|Environmental Chemistry": {
+    "questions": 6,
+    "chapter": "Environmental Chemistry",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 1.0,
+    "in_current_syllabus": false
+  },
+  "zoology|Strategies for Enhancement in Food Production": {
+    "questions": 5,
+    "chapter": "Strategies for Enhancement in Food Production",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0,
+    "in_current_syllabus": false
+  },
+  "chemistry|Hydrogen": {
+    "questions": 5,
+    "chapter": "Hydrogen",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 1.0,
+    "in_current_syllabus": false
+  },
+  "zoology|Molecular Basis of Inheritance": {
+    "questions": 4,
+    "chapter": "Molecular Basis of Inheritance",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0,
+    "split_disputed": true
+  },
+  "biology|The Living World": {
+    "questions": 4,
+    "chapter": "The Living World",
+    "subject": "botany",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "zoology|Organisms and Populations": {
+    "questions": 4,
+    "chapter": "Organisms and Populations",
+    "subject": "zoology",
+    "ncert_class": 12,
+    "confidence": 1.0,
+    "split_disputed": true
+  },
+  "biology|Biodiversity and Conservation": {
+    "questions": 4,
+    "chapter": "Biodiversity and Conservation",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "zoology|Biotechnology and its Applications": {
+    "questions": 4,
+    "chapter": "Biotechnology and its Applications",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "biology|Human Health and Disease": {
+    "questions": 4,
+    "chapter": "Human Health and Disease",
+    "subject": "zoology",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "chemistry|The p-Block Elements (Group 13)": {
+    "questions": 3,
+    "chapter": "The p-Block Elements",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 0.93
+  },
+  "botany|The Living World": {
+    "questions": 3,
+    "chapter": "The Living World",
+    "subject": "botany",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "zoology|Cell Cycle and Cell Division": {
+    "questions": 3,
+    "chapter": "Cell Cycle and Cell Division",
+    "subject": "botany",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "botany|Microbes in Human Welfare": {
+    "questions": 3,
+    "chapter": "Microbes in Human Welfare",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "chemistry|The p-Block Elements (Group 16)": {
+    "questions": 3,
+    "chapter": "The p-Block Elements",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 0.93
+  },
+  "chemistry|The p-Block Elements (Group 14)": {
+    "questions": 3,
+    "chapter": "The p-Block Elements",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 0.93
+  },
+  "biology|Cell - The Unit of Life": {
+    "questions": 2,
+    "chapter": "Cell: The Unit of Life",
+    "subject": "botany",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "botany|Reproduction in Organisms": {
+    "questions": 2,
+    "chapter": "Reproduction in Organisms",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0,
+    "in_current_syllabus": false
+  },
+  "chemistry|The p-Block Elements (Group 15)": {
+    "questions": 2,
+    "chapter": "The p-Block Elements",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 0.93
+  },
+  "chemistry|The p-Block Elements (Group 17)": {
+    "questions": 2,
+    "chapter": "The p-Block Elements",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 0.93
+  },
+  "biology|Strategies for Enhancement in Food Production": {
+    "questions": 2,
+    "chapter": "Strategies for Enhancement in Food Production",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0,
+    "in_current_syllabus": false
+  },
+  "biology|Biological Classification": {
+    "questions": 2,
+    "chapter": "Biological Classification",
+    "subject": "botany",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "zoology|Biomolecules": {
+    "questions": 2,
+    "chapter": "Biomolecules",
+    "subject": "botany",
+    "ncert_class": 11,
+    "confidence": 1.0,
+    "split_disputed": true
+  },
+  "botany|Strategies for Enhancement in Food Production": {
+    "questions": 2,
+    "chapter": "Strategies for Enhancement in Food Production",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0,
+    "in_current_syllabus": false
+  },
+  "chemistry|Ionic Equilibrium": {
+    "questions": 1,
+    "chapter": "Equilibrium",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 0.93
+  },
+  "zoology|Ecosystem": {
+    "questions": 1,
+    "chapter": "Ecosystem",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0,
+    "in_current_syllabus": false
+  },
+  "botany|The Living World / Biological Classification": {
+    "questions": 1,
+    "chapter": "Biological Classification",
+    "subject": "botany",
+    "ncert_class": 11,
+    "confidence": 0.93,
+    "needs_review": true,
+    "alternatives": [
+      {
+        "subject": "botany",
+        "chapter": "Biological Classification",
+        "score": 0.93
+      },
+      {
+        "subject": "botany",
+        "chapter": "The Living World",
+        "score": 0.93
+      },
+      {
+        "subject": "botany",
+        "chapter": "Biotechnology and its Applications",
+        "score": 0.421
+      }
+    ]
+  },
+  "zoology|Biodiversity and Conservation": {
+    "questions": 1,
+    "chapter": "Biodiversity and Conservation",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "biology|Respiration in Plants": {
+    "questions": 1,
+    "chapter": "Respiration in Plants",
+    "subject": "botany",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "chemistry|Hydrocarbons / Alcohols, Phenols and Ethers": {
+    "questions": 1,
+    "chapter": "Alcohols, Phenols and Ethers",
+    "subject": "chemistry",
+    "ncert_class": 12,
+    "confidence": 0.93,
+    "needs_review": true,
+    "alternatives": [
+      {
+        "subject": "chemistry",
+        "chapter": "Alcohols, Phenols and Ethers",
+        "score": 0.93
+      },
+      {
+        "subject": "chemistry",
+        "chapter": "Hydrocarbons",
+        "score": 0.93
+      },
+      {
+        "subject": "chemistry",
+        "chapter": "Haloalkanes and Haloarenes",
+        "score": 0.455
+      }
+    ]
+  },
+  "biology|Biotechnology - Principles and Processes": {
+    "questions": 1,
+    "chapter": "Biotechnology: Principles and Processes",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "biology|Photosynthesis in Higher Plants": {
+    "questions": 1,
+    "chapter": "Photosynthesis in Higher Plants",
+    "subject": "botany",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "botany|Cell : The Unit of Life": {
+    "questions": 1,
+    "chapter": "Cell: The Unit of Life",
+    "subject": "botany",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "chemistry|Organic Compounds Containing Nitrogen / The p-Block Elements": {
+    "questions": 1,
+    "chapter": "The p-Block Elements",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 0.93
+  },
+  "chemistry|The p-Block Elements (Group 17 - Halogens)": {
+    "questions": 1,
+    "chapter": "The p-Block Elements",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 0.93
+  },
+  "chemistry|The p-Block Elements (Group 18 Elements)": {
+    "questions": 1,
+    "chapter": "The p-Block Elements",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 0.93
+  },
+  "botany|Biotechnology - Principles and Processes": {
+    "questions": 1,
+    "chapter": "Biotechnology: Principles and Processes",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "physics|Communication Systems": {
+    "questions": 1,
+    "chapter": "Communication Systems",
+    "subject": "physics",
+    "ncert_class": 12,
+    "confidence": 1.0,
+    "in_current_syllabus": false
+  },
+  "chemistry|The p-Block Elements (Group 13 & 14) / Hydrogen": {
+    "questions": 1,
+    "chapter": "Hydrogen",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 0.93,
+    "needs_review": true,
+    "alternatives": [
+      {
+        "subject": "chemistry",
+        "chapter": "Hydrogen",
+        "score": 0.93
+      },
+      {
+        "subject": "chemistry",
+        "chapter": "The p-Block Elements",
+        "score": 0.93
+      },
+      {
+        "subject": "chemistry",
+        "chapter": "The s-Block Elements",
+        "score": 0.623
+      }
+    ]
+  },
+  "chemistry|The p-Block Elements (Group 13 & 14)": {
+    "questions": 1,
+    "chapter": "The p-Block Elements",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 0.93
+  },
+  "zoology|The Living World": {
+    "questions": 1,
+    "chapter": "The Living World",
+    "subject": "botany",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "biology|The Living World / Biological Classification": {
+    "questions": 1,
+    "chapter": "Biological Classification",
+    "subject": "botany",
+    "ncert_class": 11,
+    "confidence": 0.93,
+    "needs_review": true,
+    "alternatives": [
+      {
+        "subject": "botany",
+        "chapter": "Biological Classification",
+        "score": 0.93
+      },
+      {
+        "subject": "botany",
+        "chapter": "The Living World",
+        "score": 0.93
+      },
+      {
+        "subject": "botany",
+        "chapter": "Biotechnology and its Applications",
+        "score": 0.421
+      }
+    ]
+  },
+  "chemistry|The p-Block Elements (Group 14) / Carbon and its Allotropes": {
+    "questions": 1,
+    "chapter": "The p-Block Elements",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 0.93
+  },
+  "chemistry|Amines (Diazonium Salts) / Haloalkanes and Haloarenes": {
+    "questions": 1,
+    "chapter": "Amines",
+    "subject": "chemistry",
+    "ncert_class": 12,
+    "confidence": 0.93,
+    "needs_review": true,
+    "alternatives": [
+      {
+        "subject": "chemistry",
+        "chapter": "Amines",
+        "score": 0.93
+      },
+      {
+        "subject": "chemistry",
+        "chapter": "Haloalkanes and Haloarenes",
+        "score": 0.93
+      },
+      {
+        "subject": "chemistry",
+        "chapter": "Organic Chemistry - Some Basic Principles and Techniques",
+        "score": 0.369
+      }
+    ]
+  },
+  "zoology|Environmental Issues": {
+    "questions": 1,
+    "chapter": "Environmental Issues",
+    "subject": "botany",
+    "ncert_class": 12,
+    "confidence": 1.0,
+    "in_current_syllabus": false
+  },
+  "chemistry|Salt Analysis / Qualitative Analysis of Inorganic Salts": {
+    "questions": 1,
+    "chapter": "General Principles and Processes of Isolation of Elements",
+    "subject": "chemistry",
+    "ncert_class": 12,
+    "confidence": 0.345,
+    "needs_review": true,
+    "alternatives": [
+      {
+        "subject": "chemistry",
+        "chapter": "General Principles and Processes of Isolation of Elements",
+        "score": 0.345
+      },
+      {
+        "subject": "chemistry",
+        "chapter": "Classification of Elements and Periodicity in Properties",
+        "score": 0.33
+      },
+      {
+        "subject": "chemistry",
+        "chapter": "States of Matter",
+        "score": 0.319
+      }
+    ]
+  },
+  "chemistry|Practical Chemistry (Titrimetric Analysis)": {
+    "questions": 1,
+    "chapter": "Organic Chemistry - Some Basic Principles and Techniques",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 0.489,
+    "needs_review": true,
+    "alternatives": [
+      {
+        "subject": "chemistry",
+        "chapter": "Organic Chemistry - Some Basic Principles and Techniques",
+        "score": 0.489
+      },
+      {
+        "subject": "chemistry",
+        "chapter": "Surface Chemistry",
+        "score": 0.456
+      },
+      {
+        "subject": "chemistry",
+        "chapter": "Environmental Chemistry",
+        "score": 0.444
+      }
+    ]
+  },
+  "biology|Excretory Products and their Elimination": {
+    "questions": 1,
+    "chapter": "Excretory Products and their Elimination",
+    "subject": "zoology",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "biology|Human Reproduction": {
+    "questions": 1,
+    "chapter": "Human Reproduction",
+    "subject": "zoology",
+    "ncert_class": 12,
+    "confidence": 1.0
+  },
+  "biology|Body Fluids and Circulation": {
+    "questions": 1,
+    "chapter": "Body Fluids and Circulation",
+    "subject": "zoology",
+    "ncert_class": 11,
+    "confidence": 1.0
+  },
+  "chemistry|Haloalkanes and Haloaranes": {
+    "questions": 1,
+    "chapter": "Haloalkanes and Haloarenes",
+    "subject": "chemistry",
+    "ncert_class": 12,
+    "confidence": 0.962
+  },
+  "chemistry|The p-Block Elements (Group 18)": {
+    "questions": 1,
+    "chapter": "The p-Block Elements",
+    "subject": "chemistry",
+    "ncert_class": 11,
+    "confidence": 0.93
+  },
+  "chemistry|Salt Analysis (Qualitative Analysis of Inorganic Compounds)": {
+    "questions": 1,
+    "chapter": "Coordination Compounds",
+    "subject": "chemistry",
+    "ncert_class": 12,
+    "confidence": 0.38,
+    "needs_review": true,
+    "alternatives": [
+      {
+        "subject": "chemistry",
+        "chapter": "Coordination Compounds",
+        "score": 0.38
+      },
+      {
+        "subject": "chemistry",
+        "chapter": "Structure of Atom",
+        "score": 0.324
+      },
+      {
+        "subject": "chemistry",
+        "chapter": "Classification of Elements and Periodicity in Properties",
+        "score": 0.319
+      }
+    ]
+  },
+  "zoology|Respiration in Plants / Cell Respiration": {
+    "questions": 1,
+    "chapter": "Respiration in Plants",
+    "subject": "botany",
+    "ncert_class": 11,
+    "confidence": 0.93
+  },
+  "zoology|Body Fluids and Circulation / Immunity (Human Health and Disease)": {
+    "questions": 1,
+    "chapter": "Body Fluids and Circulation",
+    "subject": "zoology",
+    "ncert_class": 11,
+    "confidence": 0.93,
+    "needs_review": true,
+    "alternatives": [
+      {
+        "subject": "zoology",
+        "chapter": "Body Fluids and Circulation",
+        "score": 0.93
+      },
+      {
+        "subject": "zoology",
+        "chapter": "Human Health and Disease",
+        "score": 0.93
+      },
+      {
+        "subject": "botany",
+        "chapter": "Respiration in Plants",
+        "score": 0.39
+      }
+    ]
+  }
+}
