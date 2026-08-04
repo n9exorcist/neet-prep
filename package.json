@@ -6,9 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "import": "tsx scripts/import.ts"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.112.0",
     "@types/katex": "^0.16.8",
     "katex": "^0.18.1",
     "next": "16.2.12",
@@ -23,6 +25,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.12",
     "tailwindcss": "^4",
+    "tsx": "^4.23.5",
     "typescript": "^5"
   }
 }
