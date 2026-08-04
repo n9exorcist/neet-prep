@@ -23,7 +23,7 @@
   "botany|Molecular Basis of Inheritance": {
     "questions": 39,
     "chapter": "Molecular Basis of Inheritance",
-    "subject": "botany",
+    "subject": "zoology",
     "ncert_class": 12,
     "confidence": 1.0,
     "split_disputed": true
@@ -221,7 +221,7 @@
   "zoology|Principles of Inheritance and Variation": {
     "questions": 23,
     "chapter": "Principles of Inheritance and Variation",
-    "subject": "botany",
+    "subject": "zoology",
     "ncert_class": 12,
     "confidence": 1.0,
     "split_disputed": true
@@ -301,7 +301,7 @@
   "botany|Principles of Inheritance and Variation": {
     "questions": 20,
     "chapter": "Principles of Inheritance and Variation",
-    "subject": "botany",
+    "subject": "zoology",
     "ncert_class": 12,
     "confidence": 1.0,
     "split_disputed": true
@@ -409,7 +409,7 @@
   "biology|Molecular Basis of Inheritance": {
     "questions": 17,
     "chapter": "Molecular Basis of Inheritance",
-    "subject": "botany",
+    "subject": "zoology",
     "ncert_class": 12,
     "confidence": 1.0,
     "split_disputed": true
@@ -691,7 +691,7 @@
   "biology|Principles of Inheritance and Variation": {
     "questions": 8,
     "chapter": "Principles of Inheritance and Variation",
-    "subject": "botany",
+    "subject": "zoology",
     "ncert_class": 12,
     "confidence": 1.0,
     "split_disputed": true
@@ -777,7 +777,7 @@
   "zoology|Molecular Basis of Inheritance": {
     "questions": 4,
     "chapter": "Molecular Basis of Inheritance",
-    "subject": "botany",
+    "subject": "zoology",
     "ncert_class": 12,
     "confidence": 1.0,
     "split_disputed": true

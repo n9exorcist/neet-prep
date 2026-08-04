@@ -119,6 +119,8 @@
     { "name": "Chemical Coordination and Integration", "ncert_class": 11 },
     { "name": "Human Reproduction", "ncert_class": 12 },
     { "name": "Reproductive Health", "ncert_class": 12 },
+    { "name": "Principles of Inheritance and Variation", "ncert_class": 12, "split_disputed": true },
+    { "name": "Molecular Basis of Inheritance", "ncert_class": 12, "split_disputed": true },
     { "name": "Evolution", "ncert_class": 12, "split_disputed": true },
     { "name": "Human Health and Disease", "ncert_class": 12 },
     { "name": "Organisms and Populations", "ncert_class": 12, "split_disputed": true },
