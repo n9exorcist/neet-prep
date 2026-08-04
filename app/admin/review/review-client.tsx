@@ -4,6 +4,7 @@ import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
 import { renderMathText } from "@/lib/review/math-text";
+import type { FigureMeta } from "@/lib/review/store";
 import { OPTION_KEYS, type ReviewRow } from "@/lib/review/types";
 
 import { recordDecision } from "./actions";
@@ -21,10 +22,12 @@ export function ReviewClient({
   row,
   remaining,
   chapters,
+  figureMeta,
 }: {
   row: ReviewRow;
   remaining: number;
   chapters: Record<string, string[]>;
+  figureMeta: FigureMeta | null;
 }) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
@@ -43,6 +46,7 @@ export function ReviewClient({
   const [altText, setAltText] = useState(seed?.alt_text ?? "");
   const [figureBroken, setFigureBroken] = useState(false);
   const [showText, setShowText] = useState(false);
+  const [showPage, setShowPage] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const hasFigure = Boolean(row.figure_path);
@@ -150,16 +154,57 @@ export function ReviewClient({
                 before approving.
               </p>
             ) : (
+              /* Rendered at its own proportions. width/height reserve the exact
+                 space so the layout does not jump, without squashing crops that
+                 range from taller-than-wide to eight times wider than tall. */
               /* eslint-disable-next-line @next/next/no-img-element */
               <img
                 src={figureSrc ?? ""}
                 alt={altText || "Figure for this question, awaiting a description"}
                 loading="lazy"
+                width={figureMeta?.width}
+                height={figureMeta?.height}
                 onError={() => setFigureBroken(true)}
-                className="w-full rounded-[4px] border border-rule bg-white"
-                style={{ aspectRatio: "16 / 7", objectFit: "contain" }}
+                className="h-auto w-full rounded-[4px] border border-rule bg-white"
               />
             )}
+
+            {figureMeta?.short ? (
+              <figcaption className="t-ui mt-2 text-incorrect">
+                <span aria-hidden="true">⚠ </span>
+                This crop is only {figureMeta.height}px tall and may be blank or cut
+                off. Check it against the full page before approving.
+              </figcaption>
+            ) : null}
+
+            <button
+              type="button"
+              onClick={() => setShowPage((v) => !v)}
+              className="t-ui mt-2 min-h-[44px] text-graphite underline underline-offset-4 hover:text-ink"
+              aria-expanded={showPage}
+            >
+              {showPage ? "Hide" : "Show"} full page {row.source_page}
+            </button>
+
+            {showPage ? (
+              /* Both pages: a diagram question near the foot of a page routinely
+                 has its last option printed overleaf, so page N alone is not
+                 enough to tell whether the crop lost anything. */
+              <div className="mt-2 flex flex-col gap-2">
+                {[row.source_page, row.source_page + 1].map((p) => (
+                  <div key={p}>
+                    <p className="t-label text-graphite">Page {p}</p>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={`/api/page/${row.year}/${p}`}
+                      alt={`Full source page ${p} of the ${row.year} paper`}
+                      loading="lazy"
+                      className="mt-1 h-auto w-full rounded-[4px] border border-rule bg-white"
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : null}
           </figure>
         ) : null}
 

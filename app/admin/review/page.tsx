@@ -1,6 +1,12 @@
 import Link from "next/link";
 
-import { buildQueue, chaptersBySubject, computeStats, loadRows } from "@/lib/review/store";
+import {
+  buildQueue,
+  chaptersBySubject,
+  computeStats,
+  getFigureMeta,
+  loadRows,
+} from "@/lib/review/store";
 
 import { ReviewClient } from "./review-client";
 
@@ -19,6 +25,8 @@ export default async function ReviewPage({
   const queue = buildQueue(rows, year);
   const current = queue[0] ?? null;
   const chapters = chaptersBySubject(rows);
+  const figureMeta =
+    current?.figure_path ? await getFigureMeta(current.year, current.figure_path) : null;
 
   return (
     <main className="mx-auto w-full max-w-[720px] px-4 py-6 sm:px-6 sm:py-10">
@@ -75,6 +83,7 @@ export default async function ReviewPage({
           row={current}
           remaining={queue.length}
           chapters={chapters}
+          figureMeta={figureMeta}
         />
       )}
     </main>

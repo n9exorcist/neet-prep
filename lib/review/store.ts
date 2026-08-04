@@ -115,6 +115,39 @@ export async function appendDecision(decision: Decision): Promise<void> {
   await fs.appendFile(DECISIONS_FILE, JSON.stringify(decision) + "\n", "utf8");
 }
 
+export type FigureMeta = { width: number; height: number; short: boolean };
+
+/**
+ * PNG width/height straight from the IHDR header - 24 bytes, no decoding. Used
+ * to reserve exact layout space and to flag crops that came out suspiciously
+ * short, which is the signature of a figure_span that missed its target.
+ */
+export async function getFigureMeta(
+  year: number,
+  figurePath: string,
+): Promise<FigureMeta | null> {
+  const name = figurePath.split("/").pop();
+  if (!name) return null;
+  try {
+    const fh = await fs.open(path.join(EXTRACTED_DIR, String(year), "figures", name), "r");
+    try {
+      const buf = Buffer.alloc(24);
+      const { bytesRead } = await fh.read(buf, 0, 24, 0);
+      if (bytesRead < 24 || buf.toString("ascii", 1, 4) !== "PNG") return null;
+      const width = buf.readUInt32BE(16);
+      const height = buf.readUInt32BE(20);
+      // 400px at 200dpi is about two inches - too little for a real diagram.
+      // Set to catch all three known-blank crops; a false warning costs a glance,
+      // a blank figure reaching a student costs them the question.
+      return { width, height, short: height < 400 };
+    } finally {
+      await fh.close();
+    }
+  } catch {
+    return null;
+  }
+}
+
 export type ReviewStats = {
   total: number;
   approved: number;
