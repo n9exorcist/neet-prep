@@ -49,9 +49,25 @@ export type Decision = {
   };
 };
 
+/**
+ * What the chapter map proposes for this row. The extracted subject and chapter
+ * are left untouched on the row itself so the original is always visible - this
+ * is a proposal the reviewer confirms, not a silent rewrite of the source data.
+ */
+export type Normalisation = {
+  subject: string;
+  chapter: string;
+  ncert_class: number | null;
+  changed: boolean;
+  needs_review: boolean;
+  split_disputed: boolean;
+  in_current_syllabus: boolean;
+};
+
 export type ReviewRow = ExtractedQuestion & {
   id: string;
   decision: Decision | null;
+  normalised: Normalisation | null;
 };
 
 /** Extraction can emit the same question twice when it spans a page break. */

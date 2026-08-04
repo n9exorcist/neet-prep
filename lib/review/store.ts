@@ -1,9 +1,11 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 
+import { chapterMapKey, loadChapterMap } from "./chapters";
 import {
   type Decision,
   type ExtractedQuestion,
+  type Normalisation,
   type OptionKey,
   type Options,
   type ReviewRow,
@@ -158,10 +160,30 @@ export type ReviewStats = {
 };
 
 export async function loadRows(): Promise<ReviewRow[]> {
-  const [extracted, decisions] = await Promise.all([readExtracted(), readDecisions()]);
+  const [extracted, decisions, chapterMap] = await Promise.all([
+    readExtracted(),
+    readDecisions(),
+    loadChapterMap(),
+  ]);
+
   return extracted.map((q) => {
     const id = rowId(q);
-    return { ...q, id, decision: decisions.get(id) ?? null };
+    const entry = chapterMap.get(chapterMapKey(q.subject, q.chapter));
+
+    let normalised: Normalisation | null = null;
+    if (entry?.chapter) {
+      normalised = {
+        subject: entry.subject,
+        chapter: entry.chapter,
+        ncert_class: entry.ncert_class ?? null,
+        changed: entry.subject !== q.subject || entry.chapter !== (q.chapter ?? ""),
+        needs_review: entry.needs_review === true,
+        split_disputed: entry.split_disputed === true,
+        in_current_syllabus: entry.in_current_syllabus !== false,
+      };
+    }
+
+    return { ...q, id, decision: decisions.get(id) ?? null, normalised };
   });
 }
 
@@ -211,7 +233,10 @@ export function buildQueue(rows: ReviewRow[], year?: number): ReviewRow[] {
   const risk = (r: ReviewRow) =>
     (r.answer == null ? 2 : 0) +
     (r.confidence === "low" ? 1 : 0) +
-    (r.has_figure && !r.figure_path ? 2 : 0);
+    (r.has_figure && !r.figure_path ? 2 : 0) +
+    // A chapter the mapper could not place needs a person, and there are only a
+    // handful, so surface them rather than let them sit at position 1,800.
+    (r.normalised == null || r.normalised.needs_review ? 1 : 0);
 
   return pending.sort((a, b) => {
     const aSkipped = a.decision?.action === "skipped" ? 1 : 0;
@@ -225,18 +250,10 @@ export function buildQueue(rows: ReviewRow[], year?: number): ReviewRow[] {
   });
 }
 
-/** Distinct chapter names already in use, for the datalist that nudges the
- *  reviewer toward one spelling per chapter instead of five. */
-export function chaptersBySubject(rows: ReviewRow[]): Record<string, string[]> {
-  const map = new Map<string, Set<string>>();
-  for (const r of rows) {
-    const chapter = r.decision?.edited?.chapter ?? r.chapter;
-    if (!chapter) continue;
-    const subject = r.decision?.edited?.subject ?? r.subject;
-    if (!map.has(subject)) map.set(subject, new Set());
-    map.get(subject)!.add(chapter.trim());
-  }
-  return Object.fromEntries(
-    [...map.entries()].map(([k, v]) => [k, [...v].sort((a, b) => a.localeCompare(b))]),
-  );
+/**
+ * How many rows the chapter map still cannot place. Shown in the header so the
+ * remaining normalisation work is visible rather than buried in the queue.
+ */
+export function unmappedCount(rows: ReviewRow[]): number {
+  return rows.filter((r) => r.normalised == null || r.normalised.needs_review).length;
 }

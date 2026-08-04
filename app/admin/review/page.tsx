@@ -1,11 +1,12 @@
 import Link from "next/link";
 
+import { chaptersForDatalist, loadCanonicalChapters } from "@/lib/review/chapters";
 import {
   buildQueue,
-  chaptersBySubject,
   computeStats,
   getFigureMeta,
   loadRows,
+  unmappedCount,
 } from "@/lib/review/store";
 
 import { ReviewClient } from "./review-client";
@@ -20,11 +21,12 @@ export default async function ReviewPage({
   const { year: yearParam } = await searchParams;
   const year = yearParam && /^\d{4}$/.test(yearParam) ? Number(yearParam) : undefined;
 
-  const rows = await loadRows();
+  const [rows, canon] = await Promise.all([loadRows(), loadCanonicalChapters()]);
   const stats = computeStats(rows);
   const queue = buildQueue(rows, year);
   const current = queue[0] ?? null;
-  const chapters = chaptersBySubject(rows);
+  const chapters = chaptersForDatalist(canon);
+  const unmapped = unmappedCount(rows);
   const figureMeta =
     current?.figure_path ? await getFigureMeta(current.year, current.figure_path) : null;
 
@@ -47,6 +49,15 @@ export default async function ReviewPage({
           {stats.skipped > 0 ? `, ${stats.skipped} skipped for later` : ""}
           {stats.rejected > 0 ? `, ${stats.rejected} rejected` : ""}. Nothing reaches a
           student until it is approved here.
+          {unmapped > 0 ? (
+            <>
+              {" "}
+              <span className="text-ink">
+                {unmapped} still need a chapter the map could not place
+              </span>
+              ; they are sorted to the front.
+            </>
+          ) : null}
         </p>
 
         <nav aria-label="Filter by year" className="mt-4 flex flex-wrap gap-2">

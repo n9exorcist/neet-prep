@@ -26,7 +26,7 @@ export function ReviewClient({
 }: {
   row: ReviewRow;
   remaining: number;
-  chapters: Record<string, string[]>;
+  chapters: Record<string, { name: string; dropped: boolean }[]>;
   figureMeta: FigureMeta | null;
 }) {
   const router = useRouter();
@@ -34,8 +34,11 @@ export function ReviewClient({
 
   // A previously skipped question comes back with whatever edits were made then.
   const seed = row.decision?.edited;
-  const [subject, setSubject] = useState(seed?.subject ?? row.subject ?? "");
-  const [chapter, setChapter] = useState(seed?.chapter ?? row.chapter ?? "");
+  // Precedence: a human's earlier decision, then the chapter map's proposal,
+  // then the extractor's raw guess. The map never overrides a person.
+  const proposed = row.normalised;
+  const [subject, setSubject] = useState(seed?.subject ?? proposed?.subject ?? row.subject ?? "");
+  const [chapter, setChapter] = useState(seed?.chapter ?? proposed?.chapter ?? row.chapter ?? "");
   const [topic, setTopic] = useState(seed?.topic ?? row.topic ?? "");
   const [difficulty, setDifficulty] = useState(seed?.difficulty ?? row.difficulty ?? "medium");
   const [question, setQuestion] = useState(seed?.question ?? row.question ?? "");
@@ -122,6 +125,11 @@ export function ReviewClient({
   if (row.confidence === "low") flags.push("low confidence");
   if (row.has_figure && !row.figure_path) flags.push("figure expected but not cropped");
   if (row.decision?.action === "skipped") flags.push("skipped earlier");
+  if (!proposed || proposed.needs_review) flags.push("chapter not matched to the NCERT list");
+  if (proposed?.split_disputed) flags.push("botany/zoology split disputed");
+  if (proposed && !proposed.in_current_syllabus) {
+    flags.push("chapter believed dropped from the current syllabus");
+  }
 
   return (
     <article
@@ -255,9 +263,13 @@ export function ReviewClient({
               list="chapter-options"
               className={inputClass}
             />
+            {/* The fixed NCERT list, not names seen in the data - otherwise every
+                typo becomes a suggestion and the drift never converges. */}
             <datalist id="chapter-options">
               {(chapters[subject] ?? []).map((c) => (
-                <option key={c} value={c} />
+                <option key={c.name} value={c.name}>
+                  {c.dropped ? "not in the current syllabus" : undefined}
+                </option>
               ))}
             </datalist>
           </Field>
@@ -298,6 +310,18 @@ export function ReviewClient({
             </select>
           </Field>
         </div>
+
+        {proposed?.changed ? (
+          <p className="t-ui mt-3 text-graphite">
+            Normalised from{" "}
+            <span className="text-ink">
+              {row.subject}
+              {" / "}
+              {row.chapter || "(no chapter)"}
+            </span>
+            . Change it if that is wrong — what you approve is what gets imported.
+          </p>
+        ) : null}
 
         {hasFigure ? (
           <div className="mt-4">
