@@ -1,6 +1,7 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 
+import { loadOfficialKeys, officialFor } from "./answer-keys";
 import { chapterMapKey, loadChapterMap } from "./chapters";
 import {
   type Decision,
@@ -160,15 +161,17 @@ export type ReviewStats = {
 };
 
 export async function loadRows(): Promise<ReviewRow[]> {
-  const [extracted, decisions, chapterMap] = await Promise.all([
+  const [extracted, decisions, chapterMap, officialKeys] = await Promise.all([
     readExtracted(),
     readDecisions(),
     loadChapterMap(),
+    loadOfficialKeys(),
   ]);
 
   return extracted.map((q) => {
     const id = rowId(q);
     const entry = chapterMap.get(chapterMapKey(q.subject, q.chapter));
+    const official = officialFor(officialKeys, q.year, q.number);
 
     let normalised: Normalisation | null = null;
     if (entry?.chapter) {
@@ -183,7 +186,19 @@ export async function loadRows(): Promise<ReviewRow[]> {
       };
     }
 
-    return { ...q, id, decision: decisions.get(id) ?? null, normalised };
+    // The paper's own key wins over the extraction, but only when it names a
+    // single option. Two accepted options is a real thing NEET does, and the
+    // schema stores one answer, so those stay for a person to settle.
+    const answer = official?.length === 1 ? official[0] : q.answer;
+
+    return {
+      ...q,
+      answer,
+      id,
+      decision: decisions.get(id) ?? null,
+      normalised,
+      official_answer: official,
+    };
   });
 }
 

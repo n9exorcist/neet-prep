@@ -171,7 +171,27 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--year")
     ap.add_argument("--json", action="store_true", help="machine-readable output")
+    ap.add_argument(
+        "--write",
+        action="store_true",
+        help="write data/reference/answer-keys.json for the app to use",
+    )
     args = ap.parse_args()
+
+    if args.write:
+        out = {}
+        for year in sorted(p.stem.replace("NEET", "") for p in RAW.glob("NEET*.pdf")):
+            key, source = read_key(RAW / f"NEET{year}.pdf")
+            if key:
+                out[year] = {"source": source, "answers": {str(n): v for n, v in sorted(key.items())}}
+        target = ROOT / "data" / "reference" / "answer-keys.json"
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(json.dumps(out, indent=2) + "\n", encoding="utf-8")
+        total = sum(len(v["answers"]) for v in out.values())
+        print(f"wrote {target.relative_to(ROOT)}: {total} answers across {len(out)} papers")
+        for y, v in out.items():
+            print(f"   {y} ({v['source']}): {len(v['answers'])}")
+        return
 
     years = [args.year] if args.year else sorted(p.stem.replace("NEET", "") for p in RAW.glob("NEET*.pdf"))
     results = [compare(y) for y in years]

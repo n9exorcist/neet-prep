@@ -68,6 +68,12 @@ export type ReviewRow = ExtractedQuestion & {
   id: string;
   decision: Decision | null;
   normalised: Normalisation | null;
+  /**
+   * What the paper itself prints, where it prints one. More than one letter
+   * means the examiner accepted more than one option, which the schema cannot
+   * store - those need a human decision rather than a silent first-wins.
+   */
+  official_answer: OptionKey[] | null;
 };
 
 /** Extraction can emit the same question twice when it spans a page break. */
