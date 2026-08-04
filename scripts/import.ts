@@ -71,20 +71,25 @@ type ImportRow = {
   figure_name: string | null;
   is_section_b: boolean;
   source_page: number;
+  /** true only when a person approved it; RLS hides everything else. */
+  reviewed: boolean;
 };
 
 function toImportRow(row: ReviewRow): ImportRow | { error: string } {
   const e = row.decision?.edited;
-  const norm = row.normalised;
-  let subject = (e?.subject ?? row.subject ?? "").toLowerCase();
-  let chapter = (e?.chapter ?? row.chapter ?? "").trim();
+  const norm = row.normalised && !row.normalised.needs_review ? row.normalised : null;
+  const approved = row.decision?.action === "approved";
+
+  // Precedence, the same as the review page: a human's decision, then the
+  // chapter map, then the extractor's raw guess. The map never overrides a
+  // person, and it is hand-editable, so this is not the tool deciding alone.
+  let subject = (e?.subject ?? norm?.subject ?? row.subject ?? "").toLowerCase();
+  let chapter = (e?.chapter?.trim() || norm?.chapter || row.chapter || "").trim();
   const answer = (e?.answer ?? row.answer ?? "").toLowerCase();
 
-  // Questions approved before the chapter map existed recorded "biology", which
-  // is not a subject the schema accepts. Falling back to the map repairs an
-  // invalid value rather than overriding a valid choice - and the map is itself
-  // human-editable, so this is not the tool quietly deciding on its own.
-  if (subject === "biology" && norm && !norm.needs_review) {
+  // A decision recorded before the map existed can still carry "biology", which
+  // the schema does not accept. Repair it rather than refuse the row.
+  if (subject === "biology" && norm) {
     subject = norm.subject;
     if (!e?.chapter?.trim()) chapter = norm.chapter;
   }
@@ -109,9 +114,17 @@ function toImportRow(row: ReviewRow): ImportRow | { error: string } {
   }
 
   const altText = (e?.alt_text ?? "").trim();
-  if (row.figure_path && !altText) {
+
+  // An approved question must carry its figure, and a figure must carry a
+  // description - docs/DESIGN.md, and the figure_needs_alt_text constraint.
+  if (approved && row.figure_path && !altText) {
     return { error: "has a figure but no alt text" };
   }
+
+  // An unreviewed question keeps its text but not its image: nobody has written
+  // the description yet, and the constraint would reject the row. It is hidden
+  // from students anyway, and approving it later attaches the figure.
+  const withFigure = Boolean(row.figure_path) && (approved || Boolean(altText));
 
   return {
     year: row.year,
@@ -124,12 +137,13 @@ function toImportRow(row: ReviewRow): ImportRow | { error: string } {
     answer,
     difficulty: (e?.difficulty ?? row.difficulty ?? "medium").toLowerCase(),
     alt_text: altText || null,
-    figure_source: row.figure_path
-      ? path.join(process.cwd(), "data", "extracted", String(row.year), row.figure_path)
+    figure_source: withFigure
+      ? path.join(process.cwd(), "data", "extracted", String(row.year), row.figure_path!)
       : null,
-    figure_name: row.figure_path ? `${row.year}/${row.figure_path.split("/").pop()}` : null,
+    figure_name: withFigure ? `${row.year}/${row.figure_path!.split("/").pop()}` : null,
     is_section_b: row.number > 180,
     source_page: row.source_page,
+    reviewed: approved,
   };
 }
 
@@ -162,14 +176,34 @@ async function main(): Promise<void> {
     else ready.push(result);
   }
 
-  // A duplicate here means both copies of a page-break duplicate were approved.
-  // Fail loudly rather than let one silently overwrite the other.
+  // Extraction emits the same question twice when it spans a page break, so
+  // (year, number) collisions are expected. Keep the better copy: an approved
+  // one always wins, then the one from the page the question starts on, since
+  // the second copy is the tail. Two APPROVED copies is different - that is a
+  // human mistake, and it fails loudly rather than one silently overwriting
+  // the other.
   const byNumber = new Map<string, ImportRow>();
   const clashes: string[] = [];
   for (const r of ready) {
     const k = `${r.year}-${r.question_number}`;
-    if (byNumber.has(k)) clashes.push(`${k} approved twice (pages ${byNumber.get(k)!.source_page} and ${r.source_page})`);
-    else byNumber.set(k, r);
+    const seen = byNumber.get(k);
+    if (!seen) {
+      byNumber.set(k, r);
+      continue;
+    }
+    if (seen.reviewed && r.reviewed) {
+      clashes.push(`${k} approved twice (pages ${seen.source_page} and ${r.source_page})`);
+      continue;
+    }
+    const better =
+      r.reviewed !== seen.reviewed
+        ? r.reviewed
+          ? r
+          : seen
+        : r.source_page < seen.source_page
+          ? r
+          : seen;
+    byNumber.set(k, better);
   }
 
   console.log(`extracted rows:        ${rows.length}`);
@@ -291,21 +325,33 @@ async function main(): Promise<void> {
     figure_url: r.figure_name ? `${BUCKET}/${r.figure_name}` : null,
     alt_text: r.alt_text,
     is_section_b: r.is_section_b,
-    reviewed: true, // only approved rows reach here
+    // Only a human approval sets this. Everything else lands hidden: the
+    // questions_read_reviewed policy makes it invisible to every student.
+    reviewed: r.reviewed,
     source_page: r.source_page,
   }));
 
-  const { error: questionError } = await db
-    .from("questions")
-    .upsert(payload, { onConflict: "year,question_number" });
-  if (questionError) throw questionError;
-  console.log(`questions upserted:    ${payload.length}`);
+  // Upserted in batches - a couple of thousand rows in one request is a large
+  // enough body to be refused.
+  const BATCH = 500;
+  for (let i = 0; i < payload.length; i += BATCH) {
+    const slice = payload.slice(i, i + BATCH);
+    const { error: questionError } = await db
+      .from("questions")
+      .upsert(slice, { onConflict: "year,question_number" });
+    if (questionError) throw questionError;
+    console.log(`questions upserted:    ${Math.min(i + BATCH, payload.length)} / ${payload.length}`);
+  }
 
   // 4. Chapter statistics, recomputed from what is actually in the table.
+  // Counted over every imported question, not just the approved ones. How often
+  // a chapter appears in the paper is a fact about the exam, not about how far
+  // review has got; restricting it to reviewed rows would have the planner
+  // ranking chapters by how much of the bank a human had happened to reach.
   const { data: counts, error: countError } = await db
     .from("questions")
     .select("chapter_id, year")
-    .eq("reviewed", true);
+    .range(0, 9999);
   if (countError) throw countError;
 
   const perChapter = new Map<string, { n: number; years: Set<number> }>();
