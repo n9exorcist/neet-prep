@@ -21,6 +21,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import WebSocket from "ws";
 
 import { loadRows } from "../lib/review/store";
 import { OPTION_KEYS, type ReviewRow } from "../lib/review/types";
@@ -74,15 +75,26 @@ type ImportRow = {
 
 function toImportRow(row: ReviewRow): ImportRow | { error: string } {
   const e = row.decision?.edited;
-  const subject = (e?.subject ?? row.subject ?? "").toLowerCase();
-  const chapter = (e?.chapter ?? row.chapter ?? "").trim();
+  const norm = row.normalised;
+  let subject = (e?.subject ?? row.subject ?? "").toLowerCase();
+  let chapter = (e?.chapter ?? row.chapter ?? "").trim();
   const answer = (e?.answer ?? row.answer ?? "").toLowerCase();
+
+  // Questions approved before the chapter map existed recorded "biology", which
+  // is not a subject the schema accepts. Falling back to the map repairs an
+  // invalid value rather than overriding a valid choice - and the map is itself
+  // human-editable, so this is not the tool quietly deciding on its own.
+  if (subject === "biology" && norm && !norm.needs_review) {
+    subject = norm.subject;
+    if (!e?.chapter?.trim()) chapter = norm.chapter;
+  }
 
   if (subject === "biology") {
     return {
       error:
-        "subject is 'biology' - resolve to botany or zoology before import " +
-        "(the planner allocates hours per subject and cannot split an umbrella)",
+        "subject is 'biology' and the chapter map cannot place it - resolve to " +
+        "botany or zoology in /admin/review (the planner allocates hours per " +
+        "subject and cannot split an umbrella)",
     };
   }
   if (!["physics", "chemistry", "botany", "zoology"].includes(subject)) {
@@ -181,11 +193,6 @@ async function main(): Promise<void> {
     return;
   }
 
-  if (args.dryRun) {
-    console.log("\n--dry-run: stopping before any write.");
-    return;
-  }
-
   if (!url || !key) {
     console.error(
       "\nNEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must be set " +
@@ -195,7 +202,42 @@ async function main(): Promise<void> {
     return;
   }
 
-  const db = createClient(url, key, { auth: { persistSession: false } });
+  // supabase-js builds a realtime client whether or not you use one, and that
+  // needs a WebSocket. Node 20 has no global WebSocket, so supply one; this
+  // script never opens a socket, it just has to exist for the constructor.
+  const db = createClient(url, key, {
+    auth: { persistSession: false },
+    realtime: { transport: WebSocket as unknown as never },
+  });
+
+  // Read-only preflight. A dry run that never contacts the database proves
+  // nothing about the key or the schema, which is exactly what you want checked
+  // before the first real import.
+  console.log("\nchecking the database...");
+  const TABLES = ["chapters", "questions", "students", "attempts", "responses", "mastery", "plans"];
+  let schemaOk = true;
+  for (const table of TABLES) {
+    const { count, error } = await db.from(table).select("*", { count: "exact", head: true });
+    if (error) {
+      schemaOk = false;
+      console.error(`   ${table}: ${error.message}`);
+    } else {
+      console.log(`   ${table}: ok (${count ?? 0} rows)`);
+    }
+  }
+  if (!schemaOk) {
+    console.error(
+      "\nSome tables are missing or unreadable. Apply supabase/migrations/ " +
+        "before importing.",
+    );
+    process.exitCode = 1;
+    return;
+  }
+
+  if (args.dryRun) {
+    console.log("\n--dry-run: database reachable and schema present. Nothing written.");
+    return;
+  }
   const importable = [...byNumber.values()];
 
   // 1. Chapters. Seeded from the reviewer's chapter names, so normalising a name
